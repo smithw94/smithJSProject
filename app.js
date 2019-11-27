@@ -1,3 +1,8 @@
+// TO DISPLAY ANY OF THE DATA FIRST INITIATE A LOCAL PYTHON SERVER BY RUNNING 
+// python3 -m http.server
+// IN THE TERMINAL
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 let parseDate = d3.timeParse("%Y");
 
 const margin = {left: 10, right: 20, top: 20, bottom: 50 };
@@ -15,10 +20,11 @@ let minDate = new Date();
 let maxDate = new Date();
 
 
-d3.csv("./data/seasonAvgs.csv")
-  .row(function(d) { return { Year: parseDate(d.Year), HR: Number(d.HR)}; })
+d3.csv("./data/hrCompare.csv")
+  
+  .row(function(d) { return { Year: parseDate(d.Year), sHR: Number(d.sHR)}; })
   .get(function(error, rows) {
-    max = d3.max(rows, function(d) { return d.HR; });
+    max = d3.max(rows, function(d) { return d.sHR; });
     minDate = d3.min(rows, function(d) {return d.Year; });
     maxDate = d3.max(rows, function(d) { return d.Year; });
 
@@ -36,7 +42,7 @@ d3.csv("./data/seasonAvgs.csv")
 
   const line = d3.line()
     .x(function(d){ return x(d.Year); })
-    .y(function(d){ return y(d.HR); })
+    .y(function(d){ return y(d.sHR); })
     .curve(d3.curveCardinal);
 
   const svg = d3.select("body").append("svg").attr("id","svg").attr("height","100%").attr("width","100%");
