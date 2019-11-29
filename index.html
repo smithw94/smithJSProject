@@ -6,37 +6,25 @@
     <title>HR Averages</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <style>
-      html, body {
-		    margin: 0;
-		    padding: 0;
-		    height: 100%;
-		    width: 100%;
-	    }
+		<style>
+			.line {
+				fill: none;
+				stroke: steelblue;
+				stroke-width: 2px;
+			}
 
-	    text {
-		    font-family: arial;
-		    font-size: 12px;
-	    }
+    .axis path, .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
 
-
-	    path.line {
-		    fill: none;
-		    stroke: red;
-		    stroke-width: 3px;
-	    }
-
-		.axis path,
-		.axis line {
-		  fill: none;
-		  stroke: slategray;
-		  shape-rendering: crispEdges;
-		}
-
-    </style>
+      .x.axis path {
+      display: none;
+    }
+		</style>
   </head>
   <body>
-    
-    <script type="text/javascript" src="app.js"></script>
+		<script type="text/javascript" src="app.js"></script>
   </body>
 </html>

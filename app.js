@@ -1,64 +1,71 @@
+
 // TO DISPLAY ANY OF THE DATA FIRST INITIATE A LOCAL PYTHON SERVER BY RUNNING 
 // python3 -m http.server
 // IN THE TERMINAL
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+const margin = {top: 20, right: 20, bottom: 30, left: 50},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
-let parseDate = d3.timeParse("%Y");
+// parse the date / time
+const parseTime = d3.timeParse("%Y");
 
-const margin = {left: 10, right: 20, top: 20, bottom: 50 };
+// set the ranges
+const x = d3.scaleTime().range([0, width]);
+const y = d3.scaleLinear().range([height, 0]);
 
-const width = 960 - margin.left - margin.right;
-const height = 500 - margin.top - margin.bottom;
+// define the 1st line
+const valueline = d3.line()
+    .x(function(d) { return x(d.Year); })
+    .y(function(d) { return y(d.sHR); })
+    .curve(d3.curveMonotoneX)
 
+// define the 2nd line
+const valueline2 = d3.line()
+    .x(function(d) { return x(d.Year); })
+    .y(function(d) { return y(d.pHR); })
+    .curve(d3.curveMonotoneX);
 
-let max = 0;
+// append the svg obgect to the body of the page
+// appends a 'group' element to 'svg'
+// moves the 'group' element to the top left margin
+const svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
 
-const xNudge = 50;
-const yNudge = 20;
+d3.csv("./data/hrCompare.csv", function(error, data) {
+  if (error) throw error;
 
-let minDate = new Date();
-let maxDate = new Date();
+  data.forEach(function(d) {
+    d.Year = parseTime(d.Year);
+    d.sHR = +d.sHR;
+    d.pHR = +d.pHR;
+  });
 
+  x.domain(d3.extent(data, function(d){ return d.Year; }));
+  y.domain([0, d3.max(data, function(d) {
+    return Math.max(d.sHR, d.pHR); })]);
 
-d3.csv("./data/hrCompare.csv")
-  
-  .row(function(d) { return { Year: parseDate(d.Year), sHR: Number(d.sHR)}; })
-  .get(function(error, rows) {
-    max = d3.max(rows, function(d) { return d.sHR; });
-    minDate = d3.min(rows, function(d) {return d.Year; });
-    maxDate = d3.max(rows, function(d) { return d.Year; });
+  svg.append("path")
+    .data([data])
+    .attr("class", "line")
+    .attr("d", valueline)
 
-  const y = d3.scaleLinear()
-    .domain([0,max])
-    .range([height,0]);
+    svg.append("path")
+      .data([data])
+      .attr("class", "line")
+      .style("stroke", "red")
+      .attr("d", valueline2);
 
-  const x = d3.scaleTime()
-      .domain([minDate,maxDate])
-      .range([0,width]);
+  // Add the X Axis
+  svg.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
 
-  const yAxis = d3.axisLeft(y);
-
-  const xAxis = d3.axisBottom(x);
-
-  const line = d3.line()
-    .x(function(d){ return x(d.Year); })
-    .y(function(d){ return y(d.sHR); })
-    .curve(d3.curveCardinal);
-
-  const svg = d3.select("body").append("svg").attr("id","svg").attr("height","100%").attr("width","100%");
-  const chartGroup = svg.append("g").attr("class","chartGroup").attr("transform","translate("+xNudge+","+yNudge+")");
-
-		chartGroup.append("path")
-			.attr("class","line")
-			.attr("d",function(d){ return line(rows); })
-
-
-		chartGroup.append("g")
-			.attr("class","axis x")
-			.attr("transform","translate(0,"+height+")")
-			.call(xAxis);
-
-		chartGroup.append("g")
-			.attr("class","axis y")
-			.call(yAxis);
+  // Add the Y Axis
+  svg.append("g")
+      .call(d3.axisLeft(y));
 })
