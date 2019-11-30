@@ -7,20 +7,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<style>
-      body {font-family: calibri;} 
-      .axis {font: 14px calibri;}
-      .label {font: 16px calibri;}
+    body {
+      font: 10px sans-serif;
+    }
     
-      .line {
-        fill: none;
-        stroke: steelblue;
-        stroke-width: 2;
-      }
-  
-      .overlay {
-        fill: none;
-        pointer-events: all;
-      }
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+    
+    .x.axis path {
+      display: none;
+    }
+    
+    .line {
+      fill: none;
+      stroke: steelblue;
+      stroke-width: 1.5px;
+    }
 		</style>
   </head>
   <body>
