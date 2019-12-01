@@ -31,7 +31,7 @@ dataset.then(data => {
     .rollup(v => {  
       return {
         playoffAvg: ((d3.sum(v, d => d.serieshr2count) + d3.sum(v, d => d.serieshr1count)) / (d3.sum(v, d => d.gamesInSeries) * 2)),
-        seasonAvg: ((d3.mean(v, d => d.seasonhr2count)/162) + (d3.mean(v, d => d.seasonhr1count)/162))/2
+        seasonAvg: (d3.mean(v, d => d.seasonhr2count) + d3.mean(v, d => d.seasonhr1count))/(162*2)
       } 
     })
     .entries(data)
@@ -45,35 +45,60 @@ dataset.then(data => {
   x.domain(d3.extent(data, d => d.key));
   y.domain([0, d3.max(data, d => d.value.seasonAvg)]);
 
-  svg.append("path")
+  const path = svg.append("path") //playoffAvgLine
     .data([data])
       .attr("class", "line")
-      .attr("d", valueline)
+      .attr("d", valueline)  
 
-  svg.append("path")
+  const pathLength = path.node().getTotalLength();
+
+  const transitionPath = d3
+    .transition()
+    .ease(d3.easeLinear)
+    .duration(3000);
+  
+  path
+    .attr("stroke-dashoffset", pathLength)
+    .attr("stroke-dasharray", pathLength)
+    .transition(transitionPath)
+    .attr("stroke-dashoffset", 0);
+
+  const path2 = svg.append("path") //seasonAvgLine
     .data([data])
       .attr("class", "line")
       .attr("d", valueline2)
-      .style("stroke", "rgb(255, 127, 14)")    
+      .style("stroke", "rgb(255, 127, 14)")
 
-  svg.append("g")
-      .attr("class", "axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
+  const pathLength2 = path2.node().getTotalLength();
+
+  const transitionPath2 = d3
+    .transition()
+    .ease(d3.easeLinear)
+    .duration(3000);
+  
+  path2
+    .attr("stroke-dashoffset", pathLength2)
+    .attr("stroke-dasharray", pathLength2)
+    .transition(transitionPath2)
+    .attr("stroke-dashoffset", 0);
+
+  svg.append("g") // xaxis
+    .attr("class", "axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));
     svg.append("text")
-        .attr("transform", "translate(" + width/2 + "," + (height + margin.bottom-5) + ")")
-        .text("Year");
-
-  svg.append("g")
-      .attr("class", "axis")
-      .call(d3.axisLeft(y));
+      .attr("transform", "translate(" + width/2 + "," + (height + margin.bottom) + ")")
+      .text("Year");
+  
+  svg.append("g") // yaxis
+    .attr("class", "axis")
+    .call(d3.axisLeft(y));
     svg.append("text")
-        .attr("transform", "translate(" + -1*margin.left + "," + -1*margin.top/2 + ")")
-        .style("text-anchor", "start")
-        .text("Home Runs per Game");
-
-  // legend
-  var legend = svg.selectAll(".legend")
+      .attr("transform", "translate(" + -1*margin.left + "," + -1*margin.top/2 + ")")
+      .style("text-anchor", "start")
+      .text("Home Runs per Game");
+  
+  const legend = svg.selectAll(".legend") // legend
     .data(Object.keys(data[0].value))
     .enter().append("g")
     .attr("class", "legend")
@@ -174,6 +199,7 @@ dataset.then(data => {
       });
   });
 });
+
 
 
 
