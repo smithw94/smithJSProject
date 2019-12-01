@@ -12,7 +12,7 @@ const svg = d3.select("#chart").append("svg")
       .attr("transform",
       "translate(" + margin.left + "," + margin.top + ")")
 
-const test = d3.scaleOrdinal()
+const color = d3.scaleOrdinal(d3.schemeCategory10);
 
 const valueline = d3.line()
       .x(d => x(d.key))
@@ -25,7 +25,6 @@ const valueline2 = d3.line()
 const dataset = d3.csv("./data/mlbStats.csv");
 
 dataset.then(data => {
-  allData = data;
   data = d3.nest()
     .key(d => d.year )
     .sortKeys(d3.ascending)
@@ -42,20 +41,20 @@ dataset.then(data => {
     d.key = parseTime(d.key)
     d.value.playoffAvg = +d.value.playoffAvg
   });
-  
+
   x.domain(d3.extent(data, d => d.key));
   y.domain([0, d3.max(data, d => d.value.seasonAvg)]);
 
   svg.append("path")
     .data([data])
       .attr("class", "line")
-      .attr("d", valueline);
+      .attr("d", valueline)
 
   svg.append("path")
     .data([data])
       .attr("class", "line")
-      .style("stroke", "red")
-      .attr("d", valueline2);
+      .attr("d", valueline2)
+      .style("stroke", "rgb(255, 127, 14)")    
 
   svg.append("g")
       .attr("class", "axis")
@@ -73,10 +72,31 @@ dataset.then(data => {
         .style("text-anchor", "start")
         .text("Home Runs per Game");
 
+  // legend
+  var legend = svg.selectAll(".legend")
+    .data(Object.keys(data[0].value))
+    .enter().append("g")
+    .attr("class", "legend")
+    .attr("transform", (d, i) => "translate(10," + i * 20 + ")");
+
+  legend.append("rect")
+    .attr("x", 0)
+    .attr("width", 18)
+    .attr("height", 18)
+    .style("fill", d => color(d))
+
+  legend.append("text")
+    .attr("x", 70)
+    .attr("y", 9)
+    .attr("dy", ".35em")
+    .style("text-anchor", "end")
+    .text(d => d);
+  
+  // black line
   const mouseG = svg.append("g")
     .attr("class", "mouse-over-effects");
 
-  mouseG.append("path") // this is the black vertical line to follow mouse
+  mouseG.append("path")
     .attr("class", "mouse-line")
     .style("stroke", "black")
     .style("stroke-width", "1px")
