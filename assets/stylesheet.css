@@ -1,0 +1,34 @@
+body {
+  font: 10px sans-serif;
+  margin: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.subsection {
+  text-align: center;
+  width: 75%;
+  font-size: 12px;
+}
+
+.footer {
+  margin-top: 10px;
+}

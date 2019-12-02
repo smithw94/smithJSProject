@@ -1,54 +1,15 @@
 <!DOCTYPE html>
   <head>
-    <meta charset="utf-8">
-    <script src="https://d3js.org/d3.v5.js"></script>
-    <script src="https://d3js.org/d3-transition.v1.min.js"></script>
-
     <title>HR Averages</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type = "text/css" href="./assets/stylesheet.css">
 
-		<style>
-    body {
-      font: 10px sans-serif;
-      margin: 5%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .axis path,
-    .axis line {
-      fill: none;
-      stroke: #000;
-      shape-rendering: crispEdges;
-    }
-    
-    .x.axis path {
-      display: none;
-    }
-    
-    .line {
-      fill: none;
-      stroke: steelblue;
-      stroke-width: 1.5px;
-    }
-
-    .subsection {
-      text-align: center;
-      width: 75%;
-      font-size: 12px;
-    }
-
-    .footer {
-      border-top: 1px solid #000;
-      margin-top: 10px;
-    }
-
-		</style>
+    <script src="https://d3js.org/d3.v5.js"></script>
   </head>
   <body>
     <div id='chart'></div>
-    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="./lib/app.js"></script>
     <br>
     <div class="subsection">
       There's nothing quite as iconic as the home run in baseball. Over the last few decades the MLB has seen a shift with batters, the amount of home runs hit per game
