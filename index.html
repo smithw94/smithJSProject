@@ -10,8 +10,12 @@
 		<style>
     body {
       font: 10px sans-serif;
+      margin: 5%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    
+
     .axis path,
     .axis line {
       fill: none;
@@ -28,10 +32,33 @@
       stroke: steelblue;
       stroke-width: 1.5px;
     }
+
+    .subsection {
+      text-align: center;
+      width: 75%;
+      font-size: 12px;
+    }
+
+    .footer {
+      border-top: 1px solid #000;
+      margin-top: 10px;
+    }
+
 		</style>
   </head>
   <body>
     <div id='chart'></div>
-		<script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <br>
+    <div class="subsection">
+      There's nothing quite as iconic as the home run in baseball. Over the last few decades the MLB has seen a shift with batters, the amount of home runs hit per game
+      are higher than ever before, with even more being hit in the playoffs. Fans, professionals and coaches are all trying to understand this new statistical trend. But
+      how much of a shift is there really? This graph follows the average amount of home runs hit by teams per game in the postseason as well as the same teams in the 
+      regular season. While their performance may be above the average compared to teams which did not make the playoffs, this graph details that there is no significant 
+      difference between a teams seasonal home run average compared to their performance in the postseason.
+    </div>
+    <footer class="footer">
+      <a href="https://www.baseball-reference.com/">Data</a>
+    </footer>
   </body>
 </html>

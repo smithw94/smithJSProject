@@ -1,8 +1,8 @@
-const margin = { top: 30, right: 20, bottom: 45, left: 80 },
+const margin = { top: 30, right: 50, bottom: 45, left: 80 },
       width = 800 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
-const x = d3.scaleTime().range([0, width]);
+const x = d3.scaleTime().range([0, width - 10]);
 const y = d3.scaleLinear().range([height, 0]);
 
 const svg = d3.select("#chart").append("svg")
