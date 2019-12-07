@@ -1,9 +1,14 @@
 body {
-  font: 10px sans-serif;
+  font: 11px sans-serif;
   margin: 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+#chart {
+  border: black 1px solid;
+  padding-bottom: 10px;
 }
 
 .axis path,
@@ -21,6 +26,14 @@ body {
   fill: none;
   stroke: steelblue;
   stroke-width: 1.5px;
+}
+
+circle {
+  z-index: 10;
+}
+
+circle:hover {
+  cursor: pointer;
 }
 
 .subsection {
