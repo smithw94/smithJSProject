@@ -1,5 +1,5 @@
 body {
-  font: 11px sans-serif;
+  font: 12px sans-serif;
   margin: 5%;
   display: flex;
   flex-direction: column;
@@ -44,4 +44,9 @@ circle:hover {
 
 .footer {
   margin-top: 10px;
+}
+
+image {
+  width: 5%;
+  height: auto;
 }
