@@ -13,5 +13,12 @@ break down each playoff series for any given year on the chart.
  
 ### Technical Implementation
 
+Custom Graph Animations:
+![](images/maingraph.gif)
+
+Secondary graphs for each data point on main display:
+![](images/bargraph.jpg)
+
 ### Future Features
   * User's can select other batting statistics in compare their rate in the regular season versus postseason
+  * Playoff series breakdown, with individual statistics
