@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type = "text/css" href="./assets/stylesheet.css">
+    <link rel="stylesheet" type = "text/css" href="./assets/modal.css">
 
     <script src="https://d3js.org/d3.v5.js"></script>
 
@@ -11,7 +12,6 @@
   </head>
   <body>
     <div id='chart'></div>
-    <script type="text/javascript" src="./lib/app.js"></script>
     <br>
     <div class="subsection">
       There's nothing quite as iconic as the home run in baseball. Over the last few decades the MLB has seen a shift with batters, the amount of home runs hit per game
@@ -21,9 +21,22 @@
       difference between a teams seasonal home run average compared to their performance in the postseason.
       <br>
       <br>
-      Click on any of the data points to see a breakdown by year of each team who played in a playoff series compared to their own regular season home run average. Click 
-      anywhere on the bar chart to return back to the graph!
+      Click on any of the data points to see a breakdown by year of each team who played in a playoff series compared to their own regular season home run average.
     </div>
+    
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div> 
+    </div>
+    
+    <script type="text/javascript" src="./lib/app.js"></script>
     <footer class="footer">
       <a href="https://www.baseball-reference.com/">Data</a>
     </footer>
